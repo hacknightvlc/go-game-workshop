@@ -26,6 +26,7 @@ type Game struct {
 	world           *World
 	enemies         []*Enemy
 	enemySpawnTimer *Timer
+	score           int
 }
 
 func (g *Game) Update() error {
@@ -41,7 +42,7 @@ func (g *Game) Update() error {
 	for _, e := range g.enemies {
 		e.Update()
 		if e.Collider().Intersects(g.player.Collider()) {
-			// TODO: do something
+			g.score++
 		}
 	}
 
