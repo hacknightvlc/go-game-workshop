@@ -64,3 +64,14 @@ func (e *Enemy) Draw(screen *ebiten.Image) {
 
 	screen.DrawImage(e.sprite, opts)
 }
+
+func (e *Enemy) Collider() Rect {
+	bounds := e.sprite.Bounds()
+
+	return NewRect(
+		e.position.X,
+		e.position.Y,
+		float64(bounds.Dx()*SpriteScaleFactor),
+		float64(bounds.Dy()*SpriteScaleFactor),
+	)
+}

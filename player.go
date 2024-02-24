@@ -65,3 +65,14 @@ func (p *Player) Update() {
 		p.reverse = false
 	}
 }
+
+func (p *Player) Collider() Rect {
+	bounds := p.sprite.Bounds()
+
+	return NewRect(
+		p.position.X,
+		p.position.Y,
+		float64(bounds.Dx()*SpriteScaleFactor),
+		float64(bounds.Dy()*SpriteScaleFactor),
+	)
+}
