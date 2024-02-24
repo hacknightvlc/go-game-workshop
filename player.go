@@ -39,15 +39,23 @@ func (p *Player) Update() {
 	speed := 5.0
 
 	if ebiten.IsKeyPressed(ebiten.KeyDown) {
-		p.position.Y += speed
+		if p.position.Y < float64(ScreenHeight-p.sprite.Bounds().Dx()*SpriteScaleFactor) {
+			p.position.Y += speed
+		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
-		p.position.Y -= speed
+		if p.position.Y > 0 {
+			p.position.Y -= speed
+		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
-		p.position.X -= speed
+		if p.position.X > 0 {
+			p.position.X -= speed
+		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyRight) {
-		p.position.X += speed
+		if p.position.X < float64(ScreenWidth-p.sprite.Bounds().Dy()*SpriteScaleFactor) {
+			p.position.X += speed
+		}
 	}
 }
