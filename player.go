@@ -34,3 +34,20 @@ func (p *Player) Draw(screen *ebiten.Image) {
 
 	screen.DrawImage(p.sprite, opts)
 }
+
+func (p *Player) Update() {
+	speed := 5.0
+
+	if ebiten.IsKeyPressed(ebiten.KeyDown) {
+		p.position.Y += speed
+	}
+	if ebiten.IsKeyPressed(ebiten.KeyUp) {
+		p.position.Y -= speed
+	}
+	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
+		p.position.X -= speed
+	}
+	if ebiten.IsKeyPressed(ebiten.KeyRight) {
+		p.position.X += speed
+	}
+}
