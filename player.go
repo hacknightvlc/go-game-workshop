@@ -1,6 +1,8 @@
 package main
 
 import (
+	"math"
+
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -8,6 +10,7 @@ type Player struct {
 	position Vector
 	sprite   *ebiten.Image
 	reverse  bool
+	count    int
 }
 
 func NewPlayer() *Player {
@@ -30,7 +33,8 @@ func NewPlayer() *Player {
 func (p *Player) Draw(screen *ebiten.Image) {
 	opts := &ebiten.DrawImageOptions{}
 
-	opts.GeoM.Scale(SpriteScaleFactor, SpriteScaleFactor)
+	transform := math.Sin(float64(p.count/5)) / 5
+	opts.GeoM.Scale(SpriteScaleFactor, SpriteScaleFactor+transform)
 	if p.reverse {
 		opts.GeoM.Scale(-1, 1)
 		opts.GeoM.Translate(float64(p.sprite.Bounds().Dy()*SpriteScaleFactor), 0)
@@ -40,6 +44,7 @@ func (p *Player) Draw(screen *ebiten.Image) {
 }
 
 func (p *Player) Update() {
+	p.count++
 	speed := 5.0
 
 	if ebiten.IsKeyPressed(ebiten.KeyDown) {

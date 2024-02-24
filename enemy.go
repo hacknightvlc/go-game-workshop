@@ -15,6 +15,7 @@ type Enemy struct {
 	sprite   *ebiten.Image
 	position Vector
 	movement Vector
+	count    int
 }
 
 func NewEnemy() *Enemy {
@@ -54,12 +55,14 @@ func NewEnemy() *Enemy {
 func (e *Enemy) Update() {
 	e.position.X += e.movement.X
 	e.position.Y += e.movement.Y
+	e.count++
 }
 
 func (e *Enemy) Draw(screen *ebiten.Image) {
 	opts := &ebiten.DrawImageOptions{}
 
-	opts.GeoM.Scale(SpriteScaleFactor, SpriteScaleFactor)
+	transform := math.Sin(float64(e.count/5)) / 5
+	opts.GeoM.Scale(SpriteScaleFactor, SpriteScaleFactor+transform)
 	opts.GeoM.Translate(e.position.X, e.position.Y)
 
 	screen.DrawImage(e.sprite, opts)
