@@ -51,6 +51,7 @@ func (g *Game) Update() error {
 		e.Update()
 		if e.Collider().Intersects(g.player.Collider()) {
 			e.Stomp()
+			g.audio.PlaySound()
 			g.score++
 		}
 	}
