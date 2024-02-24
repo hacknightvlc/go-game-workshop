@@ -38,6 +38,10 @@ func (g *Game) Update() error {
 		g.enemies = append(g.enemies, m)
 	}
 
+	for _, e := range g.enemies {
+		e.Update()
+	}
+
 	return nil
 }
 
