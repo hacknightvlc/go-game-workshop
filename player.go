@@ -7,6 +7,7 @@ import (
 type Player struct {
 	position Vector
 	sprite   *ebiten.Image
+	reverse  bool
 }
 
 func NewPlayer() *Player {
@@ -30,8 +31,11 @@ func (p *Player) Draw(screen *ebiten.Image) {
 	opts := &ebiten.DrawImageOptions{}
 
 	opts.GeoM.Scale(SpriteScaleFactor, SpriteScaleFactor)
+	if p.reverse {
+		opts.GeoM.Scale(-1, 1)
+		opts.GeoM.Translate(float64(p.sprite.Bounds().Dy()*SpriteScaleFactor), 0)
+	}
 	opts.GeoM.Translate(p.position.X, p.position.Y)
-
 	screen.DrawImage(p.sprite, opts)
 }
 
@@ -52,10 +56,12 @@ func (p *Player) Update() {
 		if p.position.X > 0 {
 			p.position.X -= speed
 		}
+		p.reverse = true
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyRight) {
 		if p.position.X < float64(ScreenWidth-p.sprite.Bounds().Dy()*SpriteScaleFactor) {
 			p.position.X += speed
 		}
+		p.reverse = false
 	}
 }
