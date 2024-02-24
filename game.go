@@ -45,6 +45,7 @@ func (g *Game) Update() error {
 	for _, e := range g.enemies {
 		e.Update()
 		if e.Collider().Intersects(g.player.Collider()) {
+			e.Stomp()
 			g.score++
 		}
 	}

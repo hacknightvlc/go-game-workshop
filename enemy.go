@@ -78,3 +78,8 @@ func (e *Enemy) Collider() Rect {
 		float64(bounds.Dy()*SpriteScaleFactor),
 	)
 }
+
+func (e *Enemy) Stomp() {
+	e.movement.X = -e.movement.X * 10
+	e.movement.Y = -e.movement.Y * 10
+}
