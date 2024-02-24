@@ -17,10 +17,14 @@ const (
 )
 
 func NewGame() *Game {
+	audio := NewAudio()
+	audio.PlayMusic()
+
 	return &Game{
 		player:          NewPlayer(),
 		world:           NewWorld(),
 		enemySpawnTimer: NewTimer(enemySpawnTime),
+		audio:           audio,
 	}
 }
 
@@ -30,6 +34,7 @@ type Game struct {
 	enemies         []*Enemy
 	enemySpawnTimer *Timer
 	score           int
+	audio           *Audio
 }
 
 func (g *Game) Update() error {
