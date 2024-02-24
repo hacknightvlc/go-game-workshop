@@ -13,11 +13,13 @@ const (
 func NewGame() *Game {
 	return &Game{
 		player: NewPlayer(),
+		world:  NewWorld(),
 	}
 }
 
 type Game struct {
 	player *Player
+	world  *World
 }
 
 func (g *Game) Update() error {
@@ -25,6 +27,7 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
+	g.world.Draw(screen)
 	g.player.Draw(screen)
 }
 
