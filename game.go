@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"image/color"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/text"
 )
 
 const (
@@ -56,6 +59,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	for _, e := range g.enemies {
 		e.Draw(screen)
 	}
+	text.Draw(screen, fmt.Sprintf("%v", g.score), ScoreFont, ScreenWidth/2-100, 50, color.White)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
