@@ -56,7 +56,7 @@ func (g *Game) Update() error {
 	g.score++
 
 	if g.health <= 0 {
-		log.Fatal(fmt.Sprintf("Has palmao! Score: %d", g.score))
+		log.Fatal(fmt.Sprintf("Edu ha subido a senior! Score: %d", g.score))
 	}
 
 	return nil
@@ -67,8 +67,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	g.player.Draw(screen)
 	// g.health = 100
 
-	text.Draw(screen, fmt.Sprintf("Health: %06d", g.health), ScoreFont, ScreenWidth/4-130, 50, color.White)
-	text.Draw(screen, fmt.Sprintf("Score: %06d", g.score), ScoreFont, ScreenWidth/2+100, 50, color.White)
+	text.Draw(screen, fmt.Sprintf("Health: %06d", g.health), ScoreFont, ScreenWidth/4-130, 50, color.RGBA{0, 64, 0, 0xc0})
+	text.Draw(screen, fmt.Sprintf("Score: %06d", g.score), ScoreFont, ScreenWidth/2+100, 50, color.Black)
 
 	for _, e := range g.enemies {
 		e.Draw(screen)
