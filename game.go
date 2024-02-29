@@ -1,9 +1,13 @@
 package main
 
 import (
+	"fmt"
+	"image/color"
+	"log"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/text"
 )
 
 const (
@@ -26,6 +30,7 @@ type Game struct {
 	world           *World
 	enemies         []*Enemy
 	enemySpawnTimer *Timer
+	score           int
 }
 
 func (g *Game) Update() error {
@@ -38,11 +43,17 @@ func (g *Game) Update() error {
 		g.enemies = append(g.enemies, m)
 	}
 
+	g.score += 3
+
 	for _, e := range g.enemies {
 		e.Update()
 		if e.Collider().Intersects(g.player.Collider()) {
-			// TODO: do something
+			g.score -= 10
 		}
+	}
+
+	if g.score <= 0 {
+		log.Fatal("Has palmao!")
 	}
 
 	return nil
@@ -51,6 +62,9 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	g.world.Draw(screen)
 	g.player.Draw(screen)
+	// g.score = 100
+
+	text.Draw(screen, fmt.Sprintf("%06d", g.score), ScoreFont, ScreenWidth/2-100, 50, color.White)
 
 	for _, e := range g.enemies {
 		e.Draw(screen)
