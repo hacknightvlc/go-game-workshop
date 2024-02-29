@@ -9,7 +9,7 @@ import (
 const (
 	ScreenWidth       = 800
 	ScreenHeight      = 600
-	SpriteScaleFactor = 4
+	SpriteScaleFactor = 1
 	enemySpawnTime    = 500 * time.Millisecond
 )
 

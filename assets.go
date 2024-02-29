@@ -21,8 +21,8 @@ var Music_mp3 []byte
 
 var ScoreFont = mustLoadFont("assets/font.ttf")
 
-var PlayerSprite = mustLoadImage("assets/player.png")
-var EnemySprite = mustLoadImage("assets/enemy.png")
+var PlayerSprite = mustLoadImage("assets/player_edu.png")
+var EnemySprite = mustLoadImage("assets/enemy_luis.png")
 var WorldSprite = mustLoadImage("assets/floor.png")
 
 func mustLoadImage(name string) *ebiten.Image {
