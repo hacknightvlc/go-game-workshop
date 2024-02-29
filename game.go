@@ -30,6 +30,7 @@ type Game struct {
 	world           *World
 	enemies         []*Enemy
 	enemySpawnTimer *Timer
+	health          int
 	score           int
 }
 
@@ -43,17 +44,19 @@ func (g *Game) Update() error {
 		g.enemies = append(g.enemies, m)
 	}
 
-	g.score += 3
+	g.health += 3
 
 	for _, e := range g.enemies {
 		e.Update()
 		if e.Collider().Intersects(g.player.Collider()) {
-			g.score -= 10
+			g.health -= 10
 		}
 	}
 
-	if g.score <= 0 {
-		log.Fatal("Has palmao!")
+	g.score++
+
+	if g.health <= 0 {
+		log.Fatal(fmt.Sprintf("Has palmao! Score: %d", g.score))
 	}
 
 	return nil
@@ -62,9 +65,10 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	g.world.Draw(screen)
 	g.player.Draw(screen)
-	// g.score = 100
+	// g.health = 100
 
-	text.Draw(screen, fmt.Sprintf("%06d", g.score), ScoreFont, ScreenWidth/2-100, 50, color.White)
+	text.Draw(screen, fmt.Sprintf("Health: %06d", g.health), ScoreFont, ScreenWidth/4-130, 50, color.White)
+	text.Draw(screen, fmt.Sprintf("Score: %06d", g.score), ScoreFont, ScreenWidth/2+100, 50, color.White)
 
 	for _, e := range g.enemies {
 		e.Draw(screen)
